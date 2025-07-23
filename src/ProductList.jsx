@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
+import { addItem } from './CartSlice';
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
@@ -212,6 +213,17 @@ function ProductList({ onHomeClick }) {
             ]
         }
     ];
+
+    const[addedToCart, setaddedToCart] = useState({});
+    const handleAddToCart = (plant) => {
+        //Add plant to cart
+        dispatch(addItem(plant));
+        //update product grid with plant added
+        setaddedToCart((prevState) => (
+            {...prevState,
+            [plant.name]:true}
+        )
+    )}
     const styleObj = {
         backgroundColor: '#4CAF50',
         color: '#fff!important',
@@ -284,7 +296,8 @@ function ProductList({ onHomeClick }) {
                                         <img src={plant.image} className='product-image' alt={plant.name}/>
                                         <p>{plant.description}</p>
                                         <p className='product-price'>{plant.cost}</p>
-                                        <button className='product-button'>Add to Cart</button>
+                                        <button className='product-button' onClick={() => handleAddToCart(plant)}>
+                                            Add to Cart</button>
                                     </div>
                                 ))}
                             </div>
