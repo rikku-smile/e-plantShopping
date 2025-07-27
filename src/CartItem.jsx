@@ -30,7 +30,7 @@ const CartItem = ({ onContinueShopping }) => {
 
     const handleRemove = (item) => {
         if (item.quantity > 0) {
-            dispatch(removeItem(item));
+            dispatch(removeItem(item.name));
         }
     };
 
