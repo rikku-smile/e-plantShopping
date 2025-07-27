@@ -29,9 +29,7 @@ const CartItem = ({ onContinueShopping }) => {
     };
 
     const handleRemove = (item) => {
-        if (item.quantity > 0) {
-            dispatch(removeItem(item.name));
-        }
+        dispatch(removeItem({name:item.name}));
     };
 
     const handleCheckoutShopping = (e) => {
