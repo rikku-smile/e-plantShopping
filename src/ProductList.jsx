@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import './ProductList.css'
 import CartItem from './CartItem';
 import { addItem } from './CartSlice';
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+    const dispatch = useDispatch();
 
     const plantsArray = [
         {
@@ -214,16 +216,16 @@ function ProductList({ onHomeClick }) {
         }
     ];
 
-    const[addedToCart, setaddedToCart] = useState({});
+    const[AddedToCart, setAddedToCart] = useState({});
     const handleAddToCart = (plant) => {
         //Add plant to cart
         dispatch(addItem(plant));
         //update product grid with plant added
-        setaddedToCart((prevState) => (
-            {...prevState,
-            [plant.name]:true}
-        )
-    )}
+        setAddedToCart((prevState) => ({
+            ...prevState,
+                [plant.name]:true,
+        }));
+    };
     const styleObj = {
         backgroundColor: '#4CAF50',
         color: '#fff!important',
