@@ -217,13 +217,11 @@ function ProductList({ onHomeClick }) {
     ];
 
     const[AddedToCart, setAddedToCart] = useState({});
-    const handleAddToCart = (plant) => {
-        //Add plant to cart
-        dispatch(addItem(plant));
-        //update product grid with plant added
-        setAddedToCart((prevState) => ({
-            ...prevState,
-                [plant.name]:true,
+    const handleAddToCart = (product) => {
+        dispatch(addItem(product)); // Dispatch the action to add the product to the cart (Redux action)
+        setAddedToCart((prevState) => ({ // Update the local state to reflect that the product has been added
+            ...prevState, // Spread the previous state to retain existing entries
+            [product.name]: true, // Set the current product's name as a key with value 'true' to mark it as added
         }));
     };
     const styleObj = {
@@ -298,7 +296,7 @@ function ProductList({ onHomeClick }) {
                                         <img src={plant.image} className='product-image' alt={plant.name}/>
                                         <p>{plant.description}</p>
                                         <p className='product-price'>{plant.cost}</p>
-                                        <button className='product-button' onClick={() => handleAddToCart(plant)}>
+                                        <button className={`product-button ${AddedToCart[plant.name] ? 'added-to-cart' : ''}`} onClick={() => handleAddToCart(plant)} disabled={AddedToCart[plant.name]}>
                                             Add to Cart</button>
                                     </div>
                                 ))}
